@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+		<meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>DOMOTICA</title>
+        <script src="js/jquery-1.9.1.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/estilo.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    </head>
+    <body><br>
+        <div class="container">
+			<header><br>
+				<center>
+				<h2>DOMOTICA: Proyecto Algoritmos</h2></center>
+				<h4>Por:<h4>
+				<h6>Diego Juarez<h6>
+				<h6>Daniel Mejia<h6>
+				<h6>Esteban Barrera<h6>
+				<hr>
+			</header>
+			<section>
+					<br><br>
+					<center><h3>Luz sala</h3>
+				     <input type="checkbox" id="switch" name="switch">
+  	    			 <label for="switch" class="switch"></label>
+    				 <div align="center" id="bombillo">
+     				</div><br>
+			</section>
+			
+			</div>
+        </div>
+    	<script>
+			$("#switch").change(function()
+			{
+				var checkeado=$("#switch").attr("checked");
+				if(checkeado) {
+					$("#switch").removeAttr("checked");
+					console.log("estado 1");
+					var estado=1;
+					$("#bombillo").text("Apagado");
+					$("#bombillo").removeClass('alert alert-info').addClass( "alert alert-info" );
+					
+					$.ajax({
+						data:{valor_estado: estado},
+						url:'procesa.php',
+						type:'POST',
+						success: function(response){
+							//alert("Salida: "+response );
+						}
+					});
+
+				} else {
+					$("#switch").attr("checked","checked");
+					console.log("estado 2");
+					var estado=2;
+					$("#bombillo").text("Encendido");
+					$("#bombillo").removeClass('alert alert-danger').addClass( "alert alert-info" );
+					
+					    $.ajax({
+						data:{valor_estado: estado},
+						url:'procesa.php',
+						type:'POST',
+						success: function(response){
+							//alert("Salida: "+response );
+     					}
+					});
+				}
+			});	
+		</script>
+		
+		
+    </body>
+</html>
